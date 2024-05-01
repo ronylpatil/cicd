@@ -47,7 +47,7 @@ def main() -> None :
           params = yaml.safe_load(open(params_file))
           sc_params = yaml.safe_load(open(secret_file))
      except Exception as e : 
-          infologger.info(f'there\'s some issue while loading the params file [check main()]. exc: {e}')
+          infologger.info(f'unable to load the params file [check main()]. exc: {e}')
      else : 
           # create dir if not present, else execute without any warning/error
           output_path = home_dir.as_posix() + params['load_dataset']['raw_data']
