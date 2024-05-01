@@ -1,0 +1,4 @@
+[core]
+    remote = remote
+['remote "remote"']
+    url = s3://dvcs3bucket/dvc_cicd
