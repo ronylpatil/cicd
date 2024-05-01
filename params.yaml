@@ -6,3 +6,9 @@ load_dataset:
   bucket: datasetbucket
   filename: WineQT.csv
   raw_data: /data/raw
+
+make_dataset:
+  test_split: 0.25
+  seed: 41
+  processed_data: /data/interim
+  res_seed: 42
