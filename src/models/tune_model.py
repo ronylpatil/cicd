@@ -53,7 +53,7 @@ def objective(params: dict, yaml_obj: dict, x_train: pd.DataFrame, y_train: pd.S
 def main() -> None :
      curr_dir = pathlib.Path(__file__)
      home_dir = curr_dir.parent.parent.parent.as_posix()
-     cm_dir = f'{home_dir}/plots/tunning'
+     cm_dir = f'{home_dir}/figures/tunning'
 
      params = yaml.safe_load(open(f'{home_dir}/params.yaml'))
      parameters = params['train_model']
@@ -118,7 +118,7 @@ def main() -> None :
           with mlflow.start_run(description = 'best tunned model') :
                mlflow.set_tags({'project_name': 'wine-quality', 'model_status' : 'best_tunned', 'project_quarter': 'Q1-2024'})
                mlflow.log_params(space_eval(search_space, best_result))
-               filename = visualize.conf_matrix(y_test, y_pred, best_model.classes_, path = f"{home_dir}/plots/best_model", params_obj = params)
+               filename = visualize.conf_matrix(y_test, y_pred, best_model.classes_, path = f"{home_dir}/figures/bestModels", params_obj = params)
                mlflow.log_artifact(filename, 'confusion_matrix')
                mlflow.log_metrics({"accuracy": accuracy, "precision": precision, "recall": recall, "roc_score": roc_score})
                mlflow.sklearn.log_model(best_model, 'model')
