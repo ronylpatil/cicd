@@ -36,7 +36,6 @@ def feat_eng(df: pd.DataFrame, name: str = 'default') -> pd.DataFrame :
                                                                                        'free_sulfur_dioxide_to_total_sulfur_dioxide_ratio',
                                                                                        'alcohol_to_acidity_ratio', 'residual_sugar_to_citric_acid_ratio',
                                                                                        'alcohol_to_density_ratio', 'total_alkalinity', 'total_minerals']].round(4)
-
      except Exception as e : 
           infologger.info(f'unable to perform feature eng [check feat_eng()]. exc: {e}')
      else :
@@ -46,8 +45,8 @@ def feat_eng(df: pd.DataFrame, name: str = 'default') -> pd.DataFrame :
 # save the data
 def save_data(path: str, train: pd.DataFrame, test: pd.DataFrame) -> None : 
      try : 
-          train.to_csv(f'{path}/extended_train.csv', index = False)
-          test.to_csv(f'{path}/extended_test.csv', index = False)
+          train.to_csv(f'{path}/processed_train.csv', index = False)
+          test.to_csv(f'{path}/processed_test.csv', index = False)
      except Exception as e : 
           infologger.info(f'unable to save the data [check save_data()]. exc: {e}')
      else : 
@@ -71,7 +70,7 @@ def main() -> None :
           test_data_loc = f'{home_dir}{processed_data}/test.csv'
           train_data, test_data = load_data(train_data_loc), load_data(test_data_loc)
           # save the data 
-          path = f'{home_dir}{parameters["extended_data"]}'
+          path = f'{home_dir}{parameters["processed_data"]}'
           save_data(path, feat_eng(train_data, 'training_data'), feat_eng(test_data, 'testing_data'))
 
 if __name__ == "__main__" : 
