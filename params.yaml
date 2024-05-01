@@ -14,5 +14,22 @@ make_dataset:
   res_seed: 42
 
 build_features:
-  extended_data: /data/processed
-  
+  processed_data: /data/processed
+
+mlflow_config:
+  trainingExpName: modelTraining
+  tunningExpName: modelTunning
+  bestModelExpName: bestModel 
+  remote_server_uri: http://localhost:5000
+  mlflow_tracking_uri: mysql+pymysql://admin:Admin123@mysqldb.chqgugyi6uuj.us-east-1.rds.amazonaws.com:3306/mysql_mlflow
+  reg_model_name: 'outperforming models'
+  stage: production
+
+train_model:
+  n_estimators: 100
+  criterion: gini
+  max_depth: 50
+  min_samples_leaf: 30
+  random_state: 42
+  min_samples_split: 60
+  model_dir: /models
