@@ -1,0 +1,8 @@
+base:
+  project_name: cicd
+  target: quality
+
+load_dataset:
+  bucket: datasetbucket
+  filename: WineQT.csv
+  raw_data: /data/raw
