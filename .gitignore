@@ -87,3 +87,6 @@ secrets.yaml
 
 # Mypy cache
 .mypy_cache/
+
+# excluding figures directory
+figures
