@@ -1,0 +1,136 @@
+schema: '2.0'
+stages:
+  load_dataset:
+    cmd: python ./src/data/load_dataset.py
+    deps:
+    - path: ./src/data/load_dataset.py
+      hash: md5
+      md5: 7988119488817b15785e720ba66a9369
+      size: 2771
+    params:
+      params.yaml:
+        load_dataset.bucket: datasetbucket
+        load_dataset.filename: WineQT.csv
+        load_dataset.raw_data: /data/raw
+    outs:
+    - path: ./data/raw/WineQT.csv
+      hash: md5
+      md5: c4ca69c2088b0d7fe9be7e8d33106695
+      size: 71823
+  make_dataset:
+    cmd: python ./src/data/make_dataset.py
+    deps:
+    - path: ./data/raw/WineQT.csv
+      hash: md5
+      md5: c4ca69c2088b0d7fe9be7e8d33106695
+      size: 71823
+    - path: ./src/data/make_dataset.py
+      hash: md5
+      md5: a9481f3d760e375c06e6d635650aa12b
+      size: 3308
+    params:
+      params.yaml:
+        load_dataset.filename: WineQT.csv
+        load_dataset.raw_data: /data/raw
+        make_dataset.processed_data: /data/interim
+        make_dataset.res_seed: 42
+        make_dataset.seed: 41
+        make_dataset.test_split: 0.25
+    outs:
+    - path: ./data/interim/test.csv
+      hash: md5
+      md5: d602beee05ac17a0ab3d7a0d9d3dfb5e
+      size: 104399
+    - path: ./data/interim/train.csv
+      hash: md5
+      md5: 08e6766c37a3c7e95be58327f2cfe604
+      size: 313662
+  build_features:
+    cmd: python ./src/features/build_features.py
+    deps:
+    - path: ./data/interim/test.csv
+      hash: md5
+      md5: d602beee05ac17a0ab3d7a0d9d3dfb5e
+      size: 104399
+    - path: ./data/interim/train.csv
+      hash: md5
+      md5: 08e6766c37a3c7e95be58327f2cfe604
+      size: 313662
+    - path: ./src/features/build_features.py
+      hash: md5
+      md5: 5c9a4bfa2cb6aca2ec318493200f0f04
+      size: 4408
+    params:
+      params.yaml:
+        build_features.processed_data: /data/processed
+        make_dataset.processed_data: /data/interim
+    outs:
+    - path: ./data/processed/processed_test.csv
+      hash: md5
+      md5: 800eaaba8517a91df2d1d58fe7fb19d6
+      size: 91615
+    - path: ./data/processed/processed_train.csv
+      hash: md5
+      md5: e12ca6b9bf2885df081b6bfafab64aa9
+      size: 273896
+  train_model:
+    cmd: python ./src/models/train_model.py
+    deps:
+    - path: ./data/processed/processed_test.csv
+      hash: md5
+      md5: 800eaaba8517a91df2d1d58fe7fb19d6
+      size: 91615
+    - path: ./data/processed/processed_train.csv
+      hash: md5
+      md5: e12ca6b9bf2885df081b6bfafab64aa9
+      size: 273896
+    - path: ./src/models/train_model.py
+      hash: md5
+      md5: b9f38cf0319063fedfd0e7beb622f413
+      size: 5661
+    params:
+      params.yaml:
+        base.target: quality
+        build_features.processed_data: /data/processed
+        mlflow_config.remote_server_uri: http://localhost:5000
+        mlflow_config.trainingExpName: Trained Models
+        train_model.criterion: gini
+        train_model.max_depth: 18
+        train_model.min_samples_leaf: 30
+        train_model.min_samples_split: 60
+        train_model.model_dir: /models
+        train_model.n_estimators: 100
+        train_model.random_state: 42
+    outs:
+    - path: ./models/model.joblib
+      hash: md5
+      md5: a3301e8a6b4e4daf59f35b986866ef1f
+      size: 826633
+  tune_model:
+    cmd: python ./src/models/tune_model.py
+    deps:
+    - path: ./data/processed/processed_test.csv
+      hash: md5
+      md5: 800eaaba8517a91df2d1d58fe7fb19d6
+      size: 91615
+    - path: ./data/processed/processed_train.csv
+      hash: md5
+      md5: e12ca6b9bf2885df081b6bfafab64aa9
+      size: 273896
+    - path: ./src/models/tune_model.py
+      hash: md5
+      md5: d1ff6f5922a0dac1c499d8d7116fe351
+      size: 7968
+    params:
+      params.yaml:
+        base.target: quality
+        build_features.processed_data: /data/processed
+        hyperopt.max_eval: 10
+        hyperopt.model_name: best_model
+        mlflow_config.remote_server_uri: http://localhost:5000
+        mlflow_config.tunningExpName: Tunned Models
+    outs:
+    - path: ./models/best_model.joblib
+      hash: md5
+      md5: f9e89f459eed1402c7b0fc6e39450c9a
+      size: 2525273

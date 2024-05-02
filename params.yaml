@@ -27,9 +27,9 @@ mlflow_config:
   # cmd to activate server: mlflow server -h 127.0.0.1 -p 5000 --backend-store-uri mysql+pymysql://admin:Admin123@mysqldb.chqgugyi6uuj.us-east-1.rds.amazonaws.com:3306/mysql_mlflow --default-artifact-root s3://mymlflowartifacts/cicdMLflowArtifacts
 
 train_model:
-  n_estimators: 150
+  n_estimators: 100
   criterion: gini
-  max_depth: 30
+  max_depth: 18
   min_samples_leaf: 30
   random_state: 42
   min_samples_split: 60

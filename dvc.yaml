@@ -1,0 +1,77 @@
+stages:
+  load_dataset:
+    cmd: python ./src/data/load_dataset.py
+    deps:
+    - ./src/data/load_dataset.py
+    params:
+    - load_dataset.bucket
+    - load_dataset.raw_data
+    - load_dataset.filename
+    outs:
+    - .${load_dataset.raw_data}/${load_dataset.filename}
+
+  make_dataset:
+    cmd: python ./src/data/make_dataset.py
+    deps:
+    - ./src/data/make_dataset.py
+    - .${load_dataset.raw_data}/${load_dataset.filename}
+    params:
+    - load_dataset.raw_data
+    - load_dataset.filename
+    - make_dataset.test_split
+    - make_dataset.seed
+    - make_dataset.processed_data
+    - make_dataset.res_seed
+    outs:
+    - .${make_dataset.processed_data}/train.csv
+    - .${make_dataset.processed_data}/test.csv
+
+  build_features:
+    cmd: python ./src/features/build_features.py
+    deps:
+    - ./src/features/build_features.py
+    - .${make_dataset.processed_data}/train.csv
+    - .${make_dataset.processed_data}/test.csv
+    params:
+    - make_dataset.processed_data
+    - build_features.processed_data
+    outs:
+    - .${build_features.processed_data}/processed_train.csv
+    - .${build_features.processed_data}/processed_test.csv
+
+  train_model:
+    cmd: python ./src/models/train_model.py
+    deps:
+    - ./src/models/train_model.py
+    - .${build_features.processed_data}/processed_train.csv
+    - .${build_features.processed_data}/processed_test.csv
+    params:
+    - build_features.processed_data
+    - base.target
+    - train_model.n_estimators
+    - train_model.criterion
+    - train_model.random_state
+    - train_model.max_depth
+    - train_model.min_samples_leaf
+    - train_model.min_samples_split
+    - train_model.model_dir
+    - mlflow_config.trainingExpName
+    - mlflow_config.remote_server_uri
+    outs:
+    - .${train_model.model_dir}/model.joblib
+
+  tune_model:
+    cmd: python ./src/models/tune_model.py
+    deps: 
+    - ./src/models/tune_model.py
+    - .${build_features.processed_data}/processed_train.csv
+    - .${build_features.processed_data}/processed_test.csv
+    params:
+    - build_features.processed_data
+    - base.target
+    - mlflow_config.tunningExpName
+    - mlflow_config.remote_server_uri
+    - hyperopt.max_eval
+    - hyperopt.model_name
+    outs:
+    - .${train_model.model_dir}/${hyperopt.model_name}.joblib
