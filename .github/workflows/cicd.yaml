@@ -8,7 +8,7 @@
 # - Run the container on EC2/ECS   ---
 # - or push particular branch k particular folder me hone pr CI pipeline trigger karo   --- done
 
-# test-1
+# test-2
 
 name: cicd pipeline
 on:
