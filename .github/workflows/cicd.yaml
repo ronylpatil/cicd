@@ -17,6 +17,7 @@ on:
       - main
     paths:
       - './src/**'
+      - .github/**
 
 jobs:
   download_model:
