@@ -62,9 +62,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Print Current Directory
+        run: ls /home/runner/work/cicd/cicd
+
       - name: Build Docker Image
         run: |
-          echo "COPY $GITHUB_WORKSPACE/model.joblib ./app/model.joblib" >> Dockerfile 
+          echo "COPY /home/runner/work/cicd/cicd/model.joblib ./app/model.joblib" >> Dockerfile 
           docker build -t ${{ secrets.DOCKER_USERNAME }}/cicdtesting:v1.0 .
 
       - name: Log-in to Docker Hub
