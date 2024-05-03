@@ -1,0 +1,50 @@
+# .github/workflows/cicd.yml
+
+# - CICD (major)
+# - "runs on ubuntu" ye sare jobs k liye common hona   --- done
+# - multiple connected jobs (with if successfully)   ---
+# - pull prod model from RDS and create container   ---
+# - push to ECR   ---
+# - Run the container on EC2/ECS   ---
+# - or push particular branch k particular folder me hone pr CI pipeline trigger karo   --- done
+
+# test-1
+
+name: cicd pipeline
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - './src/**'
+runs-on: ubuntu-latest
+jobs:
+  download_model:
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: Install Utilities 
+        run: |
+            pip install joblib mlflow
+
+      - name: download model from mlflow
+        run: |
+          python ./prod/mlflowdb.py ${{ secrets.TRACKING_URI }}
+
+  build_docker_image:
+    needs: download_model
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build Docker Image
+      run: |
+        echo "COPY model.joblib /app/model.joblib" >> Dockerfile 
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/cicdtesting:v1.0 .
+
+    - name: Log-in to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker Img
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/cicdtesting:v1.0
