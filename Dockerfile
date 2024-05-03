@@ -16,7 +16,7 @@ COPY . /app
 
 # Install pip req
 # COPY requirements_prod.txt .
-RUN pip install -r requirements_prod.txt 
+# RUN pip install -r requirements_prod.txt 
 
 # Run the application.
 # CMD 

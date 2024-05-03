@@ -1,6 +1,7 @@
 import mlflow
 import joblib
 import click
+import pathlib
 from mlflow.tracking import MlflowClient
 from mlflow.sklearn import load_model
 
