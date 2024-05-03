@@ -22,6 +22,7 @@ def get_model(tracking_uri) :
 def save_model(uri) -> None:
      model = get_model(uri)
      joblib.dump(model, './model.joblib')
+     print(pathlib.Path(__file__))
 
 if __name__ == '__main__' :
      save_model()
