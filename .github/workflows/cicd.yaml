@@ -51,6 +51,12 @@ jobs:
         run: |
           python ./prod/mlflowdb.py ${{ secrets.TRACKING_URI }}
       
+      - name: Upload Model Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: model
+          path: /home/runner/work/cicd/cicd/model.joblib
+
       - name: Print Current Directory
         run: ls /home/runner/work/cicd/cicd
 
@@ -62,7 +68,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Print Current Directory
+      - name: Print Current Directory be-down
+        run: ls /home/runner/work/cicd/cicd
+
+      - name: Download Model Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: model
+          path: /home/runner/work/cicd/cicd
+      
+      - name: Print Current Directory af-down
         run: ls /home/runner/work/cicd/cicd
 
       - name: Build Docker Image
