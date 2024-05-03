@@ -52,11 +52,7 @@ jobs:
           python ./prod/mlflowdb.py ${{ secrets.TRACKING_URI }}
       
       - name: Print Current Directory
-        run: pwd
-
-      - name: List Files in Workspace
-        run: ls -l $GITHUB_WORKSPACE/app/
-
+        run: ls /home/runner/work/cicd/cicd
 
   build_docker_image:
     needs: download_model
@@ -65,9 +61,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Check Model File
-        run: ls -l model.joblib
 
       - name: Build Docker Image
         run: |
