@@ -50,6 +50,9 @@ jobs:
       - name: Fetch Model From Mlflow
         run: |
           python ./prod/mlflowdb.py ${{ secrets.TRACKING_URI }}
+      
+      - name: Check Model File
+        run: ls -l model.joblib
 
   build_docker_image:
     needs: download_model
