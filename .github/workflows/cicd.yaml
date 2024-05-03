@@ -82,7 +82,6 @@ jobs:
 
       - name: Build Docker Image
         run: |
-           
           docker build -t ${{ secrets.DOCKER_USERNAME }}/cicdtesting:v1.0 .
 
       - name: Log-in to Docker Hub
