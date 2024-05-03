@@ -22,6 +22,6 @@ uvicorn==0.29.0
 pytest==8.1.1
 httpx==0.27.0
 PyMySQL==1.1.0
-
+boto3==1.34.51
 # cmd: pipreqs path/of/project (if already requirements.txt use --force after cmd)
-# if want to pass filename externally - pipreqs . --savepath ./req.txt --force
+# if want to pass filename externally - pipreqs . --savepath ./req.txt --forc
