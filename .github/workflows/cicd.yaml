@@ -19,7 +19,7 @@ on:
       - .github/**
       - ./prod/**
       - Dockerfile
-  pull: 
+  pull_request: 
     branches:
       - main
 
