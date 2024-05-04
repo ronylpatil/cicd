@@ -55,3 +55,4 @@ params.yaml
 requirements.txt
 test_environment.py
 *.ini
+setup.py

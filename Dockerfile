@@ -19,4 +19,4 @@ COPY docker_requirements.txt .
 RUN pip install -r docker_requirements.txt 
 
 # Run the application
-CMD streamlit run ./prod/docker_client.py
+CMD streamlit run ./prod/docker_client.py --server.port 8081
