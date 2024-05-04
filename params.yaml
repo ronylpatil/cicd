@@ -22,7 +22,7 @@ mlflow_config:
   bestModelExpName: 'Best Models' 
   remote_server_uri: http://localhost:5000
   mlflow_tracking_uri: mysql+pymysql://admin:Admin123@mysqldb.chqgugyi6uuj.us-east-1.rds.amazonaws.com:3306/mysql_mlflow
-  reg_model_name: 'Outperforming Models'
+  reg_model_name: 'RFC Model'
   stage: production
   # cmd to activate server: mlflow server -h 127.0.0.1 -p 5000 --backend-store-uri mysql+pymysql://admin:Admin123@mysqldb.chqgugyi6uuj.us-east-1.rds.amazonaws.com:3306/mysql_mlflow --default-artifact-root s3://mymlflowartifacts/cicdMLflowArtifacts
 

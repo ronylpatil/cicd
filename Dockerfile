@@ -15,8 +15,8 @@ WORKDIR /app
 COPY . /app
 
 # Install pip req
-# COPY requirements_prod.txt .
-# RUN pip install -r requirements_prod.txt 
+COPY docker_requirements.txt .
+RUN pip install -r docker_requirements.txt 
 
-# Run the application.
-# CMD 
+# Run the application
+CMD streamlit run ./prod/docker_client.py
