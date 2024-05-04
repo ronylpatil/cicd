@@ -3,6 +3,8 @@ cicd
 
 e2e cicd pipeline
 
+[![cicd pipeline](https://github.com/ronylpatil/cicd/actions/workflows/cicd.yaml/badge.svg)](https://github.com/ronylpatil/cicd/actions/workflows/cicd.yaml)
+
 Project Organization
 ------------
 
