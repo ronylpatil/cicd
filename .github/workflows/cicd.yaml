@@ -18,6 +18,8 @@ on:
     paths:
       - ./src/**
       - .github/**
+      - ./prod/**
+      - Dockerfile
 
 jobs:
   download_model:
