@@ -16,7 +16,7 @@ on:
     branches:
       - main
     paths:
-      - './src/**'
+      - ./src/**
       - .github/**
 
 jobs:
@@ -40,12 +40,8 @@ jobs:
 
       - name: Install Utilities 
         run: |
-            pip install \
-              joblib==1.3.2 \
-              mlflow==2.11.0 \
-              PyMySQL==1.1.0 \
-              boto3==1.34.51 \
-              scikit_learn==1.4.1.post1
+            python -m pip install --upgrade pip
+            if [ -f model_requirements.txt ]; then pip install -r model_requirements.txt; fi 
 
       - name: Fetch Model From Mlflow
         run: |
@@ -55,7 +51,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: model
-          path: /home/runner/work/cicd/cicd/model.joblib
+          path: | 
+            /home/runner/work/cicd/cicd/model.joblib
+            /home/runner/work/cicd/cicd/model_details.json
 
       - name: Print Current Directory
         run: ls /home/runner/work/cicd/cicd
@@ -71,7 +69,7 @@ jobs:
       - name: Print Current Directory be-down
         run: ls /home/runner/work/cicd/cicd
 
-      - name: Download Model Artifact
+      - name: Download Model Artifacts
         uses: actions/download-artifact@v2
         with:
           name: model
