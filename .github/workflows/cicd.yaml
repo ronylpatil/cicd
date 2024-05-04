@@ -19,6 +19,7 @@ on:
       - .github/**
       - ./prod/**
       - Dockerfile
+      - docker_requirements.txt
   pull_request: 
     branches:
       - main
