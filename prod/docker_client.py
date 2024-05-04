@@ -11,7 +11,7 @@ st.set_page_config(page_title = 'WineQ Prediction',
 st.sidebar.title("About Me 🤖")
 try :
      # read data from json
-     with open('test.json', 'r') as jsn:
+     with open('model_details.json', 'r') as jsn:
           model_details = json.load(jsn)
 
      st.sidebar.write(f"#### Model Name\n ```{model_details['name']}```")

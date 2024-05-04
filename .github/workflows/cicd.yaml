@@ -2,27 +2,29 @@
 
 # - CICD (major)
 # - "runs on ubuntu" ye sare jobs k liye common hona   --- done
-# - multiple connected jobs (with if successfully)   ---
-# - pull prod model from RDS and create container   ---
+# - multiple connected jobs (with if successfully)   --- done
+# - pull prod model from RDS and create container   --- done
 # - push to ECR   ---
 # - Run the container on EC2/ECS   ---
+# - push docker img to docker hub and run it on docker desktop   --- done
 # - or push particular branch k particular folder me hone pr CI pipeline trigger karo   --- done
-
-# test-2
 
 name: cicd pipeline
 on:
   push:
     branches:
       - main
-    paths:
+    paths:                # if any changes detected in below dir then runner'll trigger cicd pipeline
       - ./src/**
       - .github/**
       - ./prod/**
       - Dockerfile
+  pull: 
+    branches:
+      - main
 
 jobs:
-  download_model:
+  download_model:            
     runs-on: ubuntu-latest
 
     steps:
@@ -49,7 +51,7 @@ jobs:
         run: |
           python ./prod/mlflowdb.py ${{ secrets.TRACKING_URI }}
       
-      - name: Upload Model Artifact
+      - name: Upload Model Artifact            # save the artifacts so that we can utilise it in next stage     
         uses: actions/upload-artifact@v2
         with:
           name: model
@@ -57,10 +59,10 @@ jobs:
             /home/runner/work/cicd/cicd/model.joblib
             /home/runner/work/cicd/cicd/model_details.json
 
-      - name: Print Current Directory
+      - name: Print Current Directory          # for debuging purpoer, u can remove it
         run: ls /home/runner/work/cicd/cicd
 
-  build_docker_image:
+  build&push_docker_image:     
     needs: download_model
     runs-on: ubuntu-latest
 
@@ -68,24 +70,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Print Current Directory be-down
+      - name: Print Current Directory be-down       # for debug purpose
         run: ls /home/runner/work/cicd/cicd
 
-      - name: Download Model Artifacts
+      - name: Download Model Artifacts           # download the previously saved artifacts
         uses: actions/download-artifact@v2
         with:
           name: model
           path: /home/runner/work/cicd/cicd
       
-      - name: Print Current Directory af-down
+      - name: Print Current Directory af-down     # for debugging
         run: ls /home/runner/work/cicd/cicd
 
-      - name: Build Docker Image
+      - name: Build Docker Image          
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/cicdtesting:v1.0 .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.0 .
 
       - name: Log-in to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker Img
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/cicdtesting:v1.0
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.0
