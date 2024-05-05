@@ -31,23 +31,23 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       
-      - name: Install AWS CLI
+      - name: Install AWS CLI      # install aws cli in runner space
         run: |
           sudo apt-get update
           sudo apt-get install -y awscli
 
-      - name: Configure AWS CLI
+      - name: Configure AWS CLI    # configure aws cli so that we can access there services via cmd line or scripts
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set region ${{ secrets.AWS_REGION }}
 
-      - name: Install Utilities 
+      - name: Install Utilities     # install utilities required to fetch model from backend
         run: |
             python -m pip install --upgrade pip
             if [ -f model_requirements.txt ]; then pip install -r model_requirements.txt; fi 
 
-      - name: Fetch Model From Mlflow
+      - name: Fetch Model From Mlflow   # below script will executed and fetch the prod model
         run: |
           python ./prod/mlflowdb.py ${{ secrets.TRACKING_URI }}
       
@@ -82,12 +82,13 @@ jobs:
       - name: Print Current Directory af-down     # for debugging
         run: ls /home/runner/work/cicd/cicd
 
-      - name: Build Docker Image          
+      - name: Build Docker Image    
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.1 .
 
-      - name: Log-in to Docker Hub
+      - name: Log-in to Docker Hub    
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Push Docker Img
+      - name: Push Docker Img     # push the previously built img to dockerhub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.1
+ 

@@ -6,7 +6,7 @@ from mlflow.tracking import MlflowClient
 from mlflow.sklearn import load_model
 
 def get_model(tracking_uri) :
-     # Define your machine learning model class
+     # Define your machine learning model class   
      mlflow.set_tracking_uri(tracking_uri)
      # tracking_uri = params['mlflow_config']['mlflow_tracking_uri']
      client = MlflowClient()
@@ -23,7 +23,7 @@ def save_model(uri) -> None:
      model, details = get_model(uri)
      joblib.dump(model, './model.joblib')
      
-     with open('model_details.json', 'w') as jsn :
+     with open('./model_details.json', 'w') as jsn :
           json.dump({'name': details.name,
                      'version': details.version,
                      'alias': details.aliases,
