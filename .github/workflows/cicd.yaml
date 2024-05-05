@@ -1,7 +1,6 @@
 # .github/workflows/cicd.yml
 
 # - CICD (major)
-# - "runs on ubuntu" ye sare jobs k liye common hona   --- done
 # - multiple connected jobs (with if successfully)   --- done
 # - pull prod model from RDS and create container   --- done
 # - push to ECR   ---
@@ -85,10 +84,10 @@ jobs:
 
       - name: Build Docker Image          
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.0 .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.1 .
 
       - name: Log-in to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker Img
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.0
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.1
