@@ -101,6 +101,5 @@ jobs:
         env: 
           deploy_url: ${{ secrets.DEPLOY_HOOK }} 
         run: |
-          IMAGE_URL = ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.2
-          curl -X POST -d "image_url = $IMAGE_URL" "$deploy_url"
+          curl -X POST -d "image_url=${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.2" "$deploy_url"
   
