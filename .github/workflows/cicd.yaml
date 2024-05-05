@@ -101,5 +101,5 @@ jobs:
         env: 
           deploy_url: ${{ secrets.DEPLOY_HOOK }} 
         run: |
-          curl "$deploy_uri"
+          curl "$deploy_url"
   
