@@ -93,7 +93,7 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.2
  
   deploy:
-    needs: build_push_docjer_image
+    needs: build_push_docker_image
     runs-on: ubuntu-latest
 
     steps:
