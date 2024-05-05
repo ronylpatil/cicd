@@ -100,8 +100,7 @@ jobs:
       - name: Deploy the container
         env: 
           deploy_url: ${{ secrets.DEPLOY_HOOK }} 
-          IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.2
         run: |
-          IMAGE_URL = "$IMAGE_NAME"
+          IMAGE_URL = ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.2
           curl -X POST -d "image_url = $IMAGE_URL" "$deploy_url"
   
