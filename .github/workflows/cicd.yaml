@@ -96,16 +96,12 @@ jobs:
     needs: build_push_docker_image
     runs-on: ubuntu-latest
 
-    inputs:
-      image_tag: "v1.2"
-
     steps:
       - name: Deploy the container
         env: 
           deploy_url: ${{ secrets.DEPLOY_HOOK }} 
           IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/wineqcicd:v1.2
         run: |
-          IMAGE_TAG = ${{ inputs.image_tag }} 
-          IMAGE_URL = "$IMAGE_NAME:$IMAGE_TAG"
+          IMAGE_URL = "$IMAGE_NAME"
           curl -X POST -d "image_url = $IMAGE_URL" "$deploy_url"
   
