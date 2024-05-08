@@ -1,7 +1,7 @@
 E2E CICD Pipeline
 ==============================
 
-Built End2End CI/CD Pipeline using GitHub Actions, Docker & Docker Hub, and hosted it to Cloud-[Render](https://render.com/)
+Built End2End CI/CD Pipeline using GitHub Actions, Docker, Docker Hub, and hosted it to Cloud-[Render](https://render.com/)
 
 [![CICD Pipeline](https://github.com/ronylpatil/cicd/actions/workflows/cicd.yaml/badge.svg)](https://github.com/ronylpatil/cicd/actions/workflows/cicd.yaml)
 
