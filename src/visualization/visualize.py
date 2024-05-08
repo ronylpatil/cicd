@@ -31,14 +31,14 @@ def conf_matrix(y_test: pd.Series, y_pred: pd.Series, labels: np.ndarray, path: 
           dir_path = pathlib.Path(f'{path}/cMatrix')
           dir_path.mkdir(parents = True, exist_ok = True)
      except Exception as e : 
-          infologger.info(f'something wrong with directories [check conf_metrix()]. exc: {e}')
+          infologger.info(f'something wrong with directories [check conf_matrix()]. exc: {e}')
      else :
           infologger.info('directories are all set!')
           try :
                cm = confusion_matrix(y_test, y_pred, labels = labels)
                disp = ConfusionMatrixDisplay(confusion_matrix = cm, display_labels = labels)
           except Exception as e : 
-               infologger.info(f'unable to plot the confusion metrix [check conf_metrix()]. exc: {e}')
+               infologger.info(f'unable to plot the confusion metrix [check conf_matrix()]. exc: {e}')
           else :
                disp.plot(cmap = plt.cm.Blues)
                plt.title('Confusion Matrix')

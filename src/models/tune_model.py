@@ -53,7 +53,8 @@ def objective(params: dict, yaml_obj: dict, x_train: pd.DataFrame, y_train: pd.S
 def main() -> None :
      curr_dir = pathlib.Path(__file__)
      home_dir = curr_dir.parent.parent.parent.as_posix()
-     cm_dir = f'{home_dir}/figures/tunning'
+     cm_dir = pathlib.Path(f'{home_dir}/figures/tunning')
+     cm_dir.mkdir(parents = True, exist_ok = True)
 
      params = yaml.safe_load(open(f'{home_dir}/params.yaml'))
      parameters = params['train_model']

@@ -51,7 +51,8 @@ def main() -> None :
      curr_path = pathlib.Path(__file__) 
      home_dir = curr_path.parent.parent.parent.as_posix()
      params_loc = f'{home_dir}/params.yaml'
-     plots_dir = f'{home_dir}/figures/training'
+     plots_dir = pathlib.Path(f'{home_dir}/figures/training')
+     plots_dir.mkdir(parents = True, exist_ok = True)
      try : 
           params = yaml.safe_load(open(params_loc, encoding = 'utf8'))
      except Exception as e :

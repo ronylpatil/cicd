@@ -33,3 +33,4 @@ def save_model(uri) -> None:
 if __name__ == '__main__' :
      save_model()
      
+# cmd: python ./prod/mlflowdb.py mlflow-backend-store-uri
