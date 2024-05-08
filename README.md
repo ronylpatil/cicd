@@ -11,6 +11,7 @@ Built End2End CI/CD Pipeline using GitHub Actions, Docker, Docker Hub, and hoste
 </p>
 
 ## Blogs
+- [Build E2E CICD Pipeline with GitHub Actions, Docker & Cloud](https://pub.towardsai.net/build-e2e-ci-cd-using-github-actions-docker-cloud-37dd1028645e#4c18)
 
 ## Installation
 
