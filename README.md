@@ -1,13 +1,33 @@
 E2E CICD Pipeline
 ==============================
 
-Built End2End CI/CD Pipeline using GitHub Actions, Docker, & Cloud(Render).
+Built End2End CI/CD Pipeline using GitHub Actions, Docker & Docker Hub, and hosted it to Cloud-[Render](https://render.com/)
 
 [![CICD Pipeline](https://github.com/ronylpatil/cicd/actions/workflows/cicd.yaml/badge.svg)](https://github.com/ronylpatil/cicd/actions/workflows/cicd.yaml)
 
-<H3>Workflow</H3>
+## Workflow
 <p align = "center">
   <img class="center" src = "https://github.com/ronylpatil/cicd/blob/main/workflow/flow.png" alt = "Drawing">
 </p>
 
-<H3>Blog</H3>
+## Blogs
+
+## Installation
+
+1. Clone the repository.
+2. Install dependencies using `pip install -r requirements.txt`
+
+## Folder Structure
+
+- `/src`: Contains the source code.
+- `/data`: Stores raw and processed data.
+- `/.github`: Contain the ci/cd workflow file.
+- `/figures`: Contains the plots generated during model experimentations.
+- `/log`: Store the log files.
+- `/prod`: Production files. 
+
+## Dataset
+
+- Download the dataset from [here](https://www.kaggle.com/datasets/yasserh/wine-quality-dataset).
+
+___
