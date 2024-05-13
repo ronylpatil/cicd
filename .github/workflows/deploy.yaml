@@ -11,7 +11,7 @@
 name: deployment pipeline
 on:
   workflow_run:
-    workflows: ["build"]
+    workflows: ['build & push img']
     types:
       - completed
 
