@@ -5,6 +5,8 @@ Built End2End CI/CD Pipeline using GitHub Actions, Docker, Docker Hub, and hoste
 
 [![CI Pipeline](https://github.com/ronylpatil/cicd/actions/workflows/build.yaml/badge.svg)](https://github.com/ronylpatil/cicd/actions/workflows/build.yaml)
 
+[![Deployment Pipeline](https://github.com/ronylpatil/cicd/actions/workflows/deploy.yaml/badge.svg)](https://github.com/ronylpatil/cicd/actions/workflows/deploy.yaml)
+
 ## Workflow
 <p align = "center">
   <img class="center" src = "https://github.com/ronylpatil/cicd/blob/main/workflow/flow.png" alt = "Drawing">
