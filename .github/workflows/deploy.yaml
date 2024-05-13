@@ -8,7 +8,7 @@
 # - push docker img to docker hub and run it on docker desktop   --- done
 # - or push particular branch k particular folder me hone pr CI pipeline trigger karo   --- done
 
-name: cicd pipeline
+name: deployment pipeline
 on:
   workflow_run:
     workflows: ["build"]
