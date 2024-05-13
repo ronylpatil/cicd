@@ -1,4 +1,4 @@
-# .github/workflows/cicd.yml
+# .github/workflows/build.yml
 
 # - CICD (major)
 # - multiple connected jobs (with if successfully)   --- done
@@ -87,15 +87,3 @@ jobs:
 
       - name: Push Docker Img     # push the previously built img to dockerhub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/wineqcicd:latest
- 
-  deploy:
-    needs: build_push_docker_image
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy the container
-        env: 
-          deploy_url: ${{ secrets.DEPLOY_HOOK }} 
-        run: |
-          curl "$deploy_url"
-  

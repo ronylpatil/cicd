@@ -1,0 +1,28 @@
+# .github/workflows/deploy.yml
+
+# - CICD (major)
+# - multiple connected jobs (with if successfully)   --- done
+# - pull prod model from RDS and create container   --- done
+# - push to ECR   ---
+# - Run the container on EC2/ECS   ---
+# - push docker img to docker hub and run it on docker desktop   --- done
+# - or push particular branch k particular folder me hone pr CI pipeline trigger karo   --- done
+
+name: cicd pipeline
+on:
+  workflow_run:
+    workflows: ["build"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    needs: build_push_docker_image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy the container
+        env: 
+          deploy_url: ${{ secrets.DEPLOY_HOOK }} 
+        run: |
+          curl "$deploy_url"
