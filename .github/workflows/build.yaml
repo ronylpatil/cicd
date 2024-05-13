@@ -59,7 +59,7 @@ jobs:
         run: ls /home/runner/work/cicd/cicd
 
   build_nd_push_dokr_img:     
-    needs: download_model      # previous stage must be successfully completed (job dependency)
+    needs: pull_latest_model      # previous stage must be successfully completed (job dependency)
     runs-on: ubuntu-latest
 
     steps:
