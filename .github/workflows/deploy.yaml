@@ -17,7 +17,7 @@ on:
 
 jobs:
   deploy:
-    needs: build_push_docker_image
+    needs: build_nd_push_dokr_img
     runs-on: ubuntu-latest
 
     steps:

@@ -24,7 +24,7 @@ on:
       - main
 
 jobs:
-  download model:            
+  pull_latest_model:            
     runs-on: ubuntu-latest
 
     steps:
@@ -58,7 +58,7 @@ jobs:
       - name: Print Current Directory          # for debuging purpoer, u can remove it
         run: ls /home/runner/work/cicd/cicd
 
-  build and push docker image:     
+  build_nd_push_dokr_img:     
     needs: download_model      # previous stage must be successfully completed (job dependency)
     runs-on: ubuntu-latest
 
