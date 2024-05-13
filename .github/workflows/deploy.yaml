@@ -17,7 +17,6 @@ on:
 
 jobs:
   deploy:
-    needs: build_nd_push_dokr_img
     runs-on: ubuntu-latest
 
     steps:
