@@ -12,7 +12,11 @@ ENV PYTHONDONTWRITEBYTECODE = 1
 ENV PYTHONUNBUFFERED = 1
 
 WORKDIR /app
-COPY . /app
+# instead of copying everying, manually copy only required files in ./app directory to keep the container size as small as possible
+# COPY ./prod/docker_client.py ./app/prod/docker_client.py
+# COPY ./prod/mlflowdb.py ./app/prod/mlflowdb.py
+# COPY docker_requirements.txt ./app/docker_requirements.txt 
+COPY . /app    
 
 # Install pip req
 COPY docker_requirements.txt .
